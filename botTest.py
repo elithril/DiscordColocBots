@@ -1,9 +1,17 @@
 # Work with Python 3.6 and rewrite discord.py
 import discord
 import asyncio
+import os
 from discord.ext import commands
 
-TOKEN = 'NTE0MDEwMDk4Mjc3MDIzNzQ0.DtQVAA.tOBJPqLxMhrgZdvrVd6UVJfJ0sg'
+# Config.py setup
+##################################################################################
+if not os.path.isfile("config.py"):
+    sys.exit("'config.py' not found! Please add it and try again.")
+
+else:
+    import config  # config.py is required to run; found in the same directory.
+
 LAUNDRY_TIMER = 45
 prefix = "!"
 bot = commands.Bot(command_prefix=prefix)
@@ -25,10 +33,11 @@ async def stopit(ctx, member: discord.Member):
 
 @bot.command(pass_context=True)
 async def laundryMachine(channel, member: discord.Member):
-    await bot.send_message(channel, "You just started the laundry machine, it will be ready in " + str(LAUNDRY_TIMER) + "minuts")
+    print(discord.client)
+    await channel.send("You just started the laundry machine, it will be ready in " + str(LAUNDRY_TIMER) + "minuts")
     await channel.send("you will be notified when this one will be over, at the meantime, you can go fap ! :wave:")
     await asyncio.sleep(10)
     await channel.send("Hey, your laundry machine just finished, go check it out and take everything off !")
     await channel.send("Don't forget your socks at the bottom ! :smiley:")
-
-bot.run(TOKEN)  # Where 'TOKEN' is your bot token
+#send envoie dans le channel 
+bot.run(config.discBotToken)  # Where 'TOKEN' is your bot token
